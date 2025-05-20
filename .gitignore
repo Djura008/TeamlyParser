@@ -1,0 +1,37 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# VSCode
+.vscode/
+
+# Gradle
+.gradle/
+build/
+
+# Kotlin/Java
+*.class
+*.jar
+*.war
+*.log
+
+# Kotlin DSL
+out/
+
+# Среда запуска
+*.bat
+*.sh
+
+# Архивы и временные файлы
+*.zip
+*.tar.gz
+*.tar.xz
+*.tgz
+*.tmp
+
+# Секреты и конфигурация
+.env
+
+# Данные
+Data/
+
