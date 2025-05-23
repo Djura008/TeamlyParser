@@ -50,7 +50,7 @@ fun main() {
     login(driver, loginPage)
   
     //Переходим на корневую страницу пространства
-    navigateAndWaitFor(driver, projectPage, "ul.article-detail-sidebar__sections > li.article-detail-sidebar__sections-item")
+    navigateAndWaitFor(driver, projectPage, "div.article-content-tree.article-detail-sidebar__tree")
 
     //Раскрываем все элементы структуры статей
     expandAllTreeNodes(driver)
@@ -74,7 +74,7 @@ fun login(driver: FirefoxDriver, loginPage: String) {
     driver.get(loginPage)
 
     //Логинимся
-    val wait = WebDriverWait(driver, Duration.ofSeconds(30))
+    val wait = WebDriverWait(driver, Duration.ofSeconds(20))
     val login = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("username")))
     login.clear()
     login.sendKeys(myUsername)
@@ -84,7 +84,7 @@ fun login(driver: FirefoxDriver, loginPage: String) {
     password.sendKeys(Keys.ENTER)
     
     //Ожидаем авторизации
-    wait.until(ExpectedConditions.urlToBe("https://hr-link.teamly.ru/old/home/latest"))
+    wait.until(ExpectedConditions.urlToBe("https://hr-link.teamly.ru/home/my"))
     //Закрываем всплывающее окно
     val closeButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.popup__close")))
     closeButton.click()
@@ -94,7 +94,7 @@ fun login(driver: FirefoxDriver, loginPage: String) {
 
 fun navigateAndWaitFor(driver: FirefoxDriver, url: String, waitingElement: String) {
     driver.get(url)
-    val wait = WebDriverWait(driver, Duration.ofSeconds(10))
+    val wait = WebDriverWait(driver, Duration.ofSeconds(20))
     wait.until(ExpectedConditions.presenceOfElementLocated((By.cssSelector(waitingElement))))
 }
 
@@ -105,7 +105,7 @@ fun expandAllTreeNodes(driver: FirefoxDriver, timeForLoading: Long = 150) {
         expanded = false
 
         val buttons = driver.findElements(
-            By.cssSelector("button.tree-item__main-button.expand:not(.active)")
+            By.cssSelector("button.tree-item__main-button.expand:not(.expanded)")
         )
 
         for (btn in buttons) {
