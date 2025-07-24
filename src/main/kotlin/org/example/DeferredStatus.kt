@@ -12,7 +12,7 @@ data class DeferredPayload(
     val type: String,
     val total: Int,
     val successed_total: Int,
-    val status_files: List<StatusFile>
+    val status_files: Map<String, StatusFile>
 )
 
 data class StatusFile(
@@ -80,7 +80,7 @@ fun pollUntilDone(
             val statusResponse = adapter.fromJson(body!!)
 
             if (statusResponse?.status == "error") {
-                val errors = statusResponse.payload?.status_files?.mapNotNull {
+                val errors = statusResponse.payload?.status_files?.values?.mapNotNull {
                     if (it.status == "error") {
                         "${it.title}: ${it.error_message ?: "Неизвестная ошибка"}"
                     } else null
